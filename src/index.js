@@ -32,7 +32,7 @@ let TODOS = [
     isCompleted: false,
   },
    {
-    id: "0143e90a-1263-4801-9ca8-3f0b09f12efc",
+    id: "0143e90a-1263-4556-9ca8-3f0b09f12efc",
     text: "Go to the supermarket",
     isCompleted: false,
   },
@@ -64,7 +64,6 @@ app.post("/todo-items", (req, res) => {
     res.status(400).json(error);
     return;
   }
-
   const new_todo = { id: uuidv4(), text: value.text, isCompleted: false };
   TODOS.push(new_todo);
   res.status(201).json({ new_todo });
@@ -89,9 +88,6 @@ app.delete("/todo-items/:todoid", (req, res) => {
   res.status(200).json({ message: "deleted" });
 });
 
-app.get("*", (res, req) => {
-  res.status(200).redirect("/todo-items");
-});
 
 app.listen(PORT, () => {
   console.log(`API is listening on port ${PORT}`);
