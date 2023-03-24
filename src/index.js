@@ -31,6 +31,11 @@ let TODOS = [
     text: "Go to the supermarket",
     isCompleted: false,
   },
+   {
+    id: "0143e90a-1263-4801-9ca8-3f0b09f12efc",
+    text: "Go to the supermarket",
+    isCompleted: false,
+  },
 ];
 
 /*Get all todos */
