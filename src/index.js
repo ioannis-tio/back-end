@@ -71,9 +71,6 @@ async function main() {
     res.status(200).json({ message: "deleted" });
   });
 
-  // app.use("/todo-items", todoRouters);
-  /*Get all todos */
-
   app.listen(PORT, () => {
     console.log(`API is listening on port ${PORT}`);
   });
