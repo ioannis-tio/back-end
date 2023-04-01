@@ -5,8 +5,6 @@ const Joi = require("joi");
 const TodoModel = require("../src/TodoSchema");
 
 
-
-
 router.get("/", async (req, res) => {
     const TodoCollection = await TodoModel.find();
     res.status(200).json(TodoCollection);
