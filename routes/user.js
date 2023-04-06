@@ -1,36 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
-const UserModal = require("../models/UserSchema");
+// const Joi = require("joi");
+// const UserModal = require("../models/UserSchema");
+const { schema, userModel } = require("../models/UserSchema");
+
+const bcrypt = require("bcrypt");
 
 router.get("/", (req, res) => {
   res.send(`email:   username:   password: `);
 });
 
-const createUserSchema = Joi.object({
-  username: Joi.string().required().min(5).max(20),
-  email: Joi.string().required().email(),
-  password: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .required()
-    .messages({
-      "string.pattern.base": `Password should be between 3 to 30 characters and contain letters or numbers only`,
-      "string.empty": `Password cannot be empty`,
-      "any.required": `Password is required`,
-    }),
-  confirmPassword: Joi.any().valid(Joi.ref("password")).required(),
-});
-
 router.post("/", async (req, res) => {
-  const { value, error } = createUserSchema.validate(req.body);
+  const { value, error } = schema.createUser.validate(req.body);
   if (error) {
     res.status(400).json(error);
   }
-  const new_user = await UserModal.create({
+
+  const hassPW = await bcrypt.hash(value.password, 10);
+
+  const new_user = await userModel.user.create({
     username: value.username,
     email: value.username,
-    password: value.password,
-    confirmPassword: value.password,
+    password: hassPW,
   });
 
   res.status(201).json({ new_user });
