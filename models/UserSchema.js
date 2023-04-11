@@ -23,7 +23,7 @@ const User = mongoose.model("User", userSchema);
 
 const createUserSchema = Joi.object({
   username: Joi.string().required().min(5).max(20),
-  email: Joi.string().required().email(),
+  email: Joi.string().required().email().message("User already exists"),
   password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
     .required()
